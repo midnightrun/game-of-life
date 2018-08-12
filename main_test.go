@@ -51,7 +51,7 @@ func TestLivingCellWithinArray(t *testing.T) {
 func TestDeadCellWithinArray(t *testing.T) {
 	universe := CreateUniverse(t)
 
-	alive := universe.Alive(0, 1)
+	alive := universe.Alive(1, 0)
 
 	if alive == true {
 		t.Errorf("Expected that the cell at [0,0] is dead but it was alive")
@@ -83,8 +83,8 @@ func TestLivingNeighbours(t *testing.T) {
 
 	count := universe.Neighbours(4, 3)
 
-	if count != 3 {
-		t.Errorf("Expected 6 living neighbours but got %d", count)
+	if count != 4 {
+		t.Errorf("Expected 4 living neighbours but got %d", count)
 	}
 }
 
@@ -101,7 +101,7 @@ func TestLessThanTwoLivingNeighbours(t *testing.T) {
 func TestWithTwoLivingNeighbours(t *testing.T) {
 	universe := CreateUniverse(t)
 
-	alive := universe.Next(0, 3)
+	alive := universe.Next(3, 0)
 
 	if alive != true {
 		t.Errorf("Expected that cell will be alive in the next generation but it will be dead")
@@ -111,7 +111,7 @@ func TestWithTwoLivingNeighbours(t *testing.T) {
 func TestWithThreeLivingNeighbours(t *testing.T) {
 	universe := CreateUniverse(t)
 
-	alive := universe.Next(4, 3)
+	alive := universe.Next(3, 4)
 
 	if alive != true {
 		t.Errorf("Expected that cell will be alive in the next generation but it will be dead")

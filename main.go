@@ -40,7 +40,7 @@ func SymbolMapping(universeRow []bool) string {
 func Step(current, future Universe) {
 	for y := range current {
 		for x := range current[y] {
-			future[x][y] = current.Next(x, y)
+			future[y][x] = current.Next(y, x)
 		}
 	}
 
@@ -68,7 +68,7 @@ func (u Universe) Seed() {
 	}
 }
 
-func (u Universe) Alive(x, y int) bool {
+func (u Universe) Alive(y, x int) bool {
 	x += Width
 	x %= Width
 
@@ -78,7 +78,7 @@ func (u Universe) Alive(x, y int) bool {
 	return u[y][x]
 }
 
-func (u Universe) Neighbours(x, y int) int {
+func (u Universe) Neighbours(y, x int) int {
 	var count int
 
 	for yRaise := -1; yRaise < 2; yRaise++ {
@@ -87,7 +87,7 @@ func (u Universe) Neighbours(x, y int) int {
 				continue
 			}
 
-			if u.Alive(x+xRaise, y+yRaise) == true {
+			if u.Alive(y+yRaise, x+xRaise) == true {
 				count++
 			}
 		}
@@ -96,12 +96,12 @@ func (u Universe) Neighbours(x, y int) int {
 	return count
 }
 
-func (u Universe) Next(x, y int) bool {
-	count := u.Neighbours(x, y)
+func (u Universe) Next(y, x int) bool {
+	count := u.Neighbours(y, x)
 
-	if count == 3 && u.Alive(x, y) == false {
+	if count == 3 && u.Alive(y, x) == false {
 		return true
-	} else if u.Alive(x, y) == true && count == 2 || count == 3 {
+	} else if u.Alive(y, x) == true && count == 2 || count == 3 {
 		return true
 	}
 
