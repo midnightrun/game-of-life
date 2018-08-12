@@ -69,27 +69,13 @@ func (u Universe) Seed() {
 }
 
 func (u Universe) Alive(x, y int) bool {
-	if x >= Width {
-		x %= Width
-	}
+	x += Width
+	x %= Width
 
-	if y >= Height {
-		y %= Height
-	}
+	y += Height
+	y %= Height
 
-	if x < 0 {
-		x += Width
-	}
-
-	if y < 0 {
-		y += Height
-	}
-
-	if u[y][x] == true {
-		return true
-	} else {
-		return false
-	}
+	return u[y][x]
 }
 
 func (u Universe) Neighbours(x, y int) int {
